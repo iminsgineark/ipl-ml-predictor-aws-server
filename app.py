@@ -42,16 +42,3 @@ if st.button('Predict Probability'):
     st.header('Wining Probability ')
     st.header(f"{batting_team}: {r_2}%")
     st.header(f"{bowling_team}: {r_1}%")
-
-# Adding background
-st.markdown(
-    """
-    <style>
-    body {
-        background-color: #f0f2f6;
-    }
-    
-    </style>
-    """,
-    unsafe_allow_html=True
-)
