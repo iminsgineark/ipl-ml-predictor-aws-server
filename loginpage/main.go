@@ -127,8 +127,7 @@ func LoginPage(w http.ResponseWriter, r *http.Request) {
 			handleErrorResponse(w, "Invalid username or password. Please try again.", http.StatusUnauthorized)
 			return
 		}
-
-		http.Redirect(w, r, "/model/", http.StatusSeeOther)
+		http.Redirect(w, r, "http://13.61.16.38/model", http.StatusSeeOther)
 		return
 	}
 
