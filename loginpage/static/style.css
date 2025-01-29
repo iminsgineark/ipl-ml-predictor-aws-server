@@ -1,7 +1,10 @@
 /* General Styles */
 body {
     font-family: 'Roboto', sans-serif;
-    background-color: #f3f4f6;
+    background-image: url('/static/7042424.jpg'); /* Path to your background image */
+    background-size: cover; /* Ensures the image covers the entire background */
+    background-position: center center; /* Centers the background image */
+    background-attachment: fixed; /* Makes sure the background doesn't scroll with the page */
     color: #333;
     margin: 0;
     display: flex;
@@ -12,7 +15,7 @@ body {
 
 /* Login Container */
 .login-container {
-    background-color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent background for better readability */
     padding: 30px;
     border-radius: 10px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
