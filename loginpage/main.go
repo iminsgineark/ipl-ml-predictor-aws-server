@@ -47,12 +47,15 @@ func main() {
 }
 
 func renderTemplate(w http.ResponseWriter, templateFile string, data interface{}) {
-	tmpl, err := template.ParseFiles(templateFile)
+	tmpl, err := template.ParseFiles("/app/templates/" + templateFile) // Corrected path
 	if err != nil {
-		http.Error(w, "Error rendering template: "+err.Error(), http.StatusInternalServerError)
+		handleErrorResponse(w, "Error rendering template: "+err.Error(), http.StatusInternalServerError)
 		return
 	}
-	tmpl.Execute(w, data)
+	err = tmpl.Execute(w, data)
+	if err != nil {
+		handleErrorResponse(w, "Error executing template: "+err.Error(), http.StatusInternalServerError)
+	}
 }
 
 func handleErrorResponse(w http.ResponseWriter, message string, statusCode int) {
@@ -67,6 +70,7 @@ func SignupPage(w http.ResponseWriter, r *http.Request) {
 		password := r.FormValue("password")
 		confirmPassword := r.FormValue("confirm_password")
 
+		// Check if passwords match
 		if password != confirmPassword {
 			handleErrorResponse(w, "Passwords do not match. Please try again.", http.StatusBadRequest)
 			return
@@ -75,19 +79,25 @@ func SignupPage(w http.ResponseWriter, r *http.Request) {
 		ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 		defer cancel()
 
+		// Check if username already exists
 		var existingUser bson.M
 		err := userColl.FindOne(ctx, bson.M{"username": username}).Decode(&existingUser)
 		if err == nil {
 			handleErrorResponse(w, "Username already exists. Please choose another username.", http.StatusConflict)
 			return
+		} else if err != mongo.ErrNoDocuments {
+			handleErrorResponse(w, "Error checking for existing username.", http.StatusInternalServerError)
+			return
 		}
 
+		// Hash the password before saving
 		hashedPassword, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
 		if err != nil {
 			handleErrorResponse(w, "Failed to hash password.", http.StatusInternalServerError)
 			return
 		}
 
+		// Insert the new user into the database
 		_, err = userColl.InsertOne(ctx, bson.M{
 			"username": username,
 			"email":    email,
@@ -103,7 +113,7 @@ func SignupPage(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	renderTemplate(w, "templates/signup.html", nil)
+	renderTemplate(w, "signup.html", nil)
 }
 
 func LoginPage(w http.ResponseWriter, r *http.Request) {
@@ -114,6 +124,7 @@ func LoginPage(w http.ResponseWriter, r *http.Request) {
 		ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 		defer cancel()
 
+		// Check if user exists in the database
 		var user bson.M
 		err := userColl.FindOne(ctx, bson.M{"username": username}).Decode(&user)
 		if err != nil {
@@ -121,19 +132,23 @@ func LoginPage(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
+		// Compare the password
 		storedPassword := user["password"].(string)
 		err = bcrypt.CompareHashAndPassword([]byte(storedPassword), []byte(password))
 		if err != nil {
 			handleErrorResponse(w, "Invalid username or password. Please try again.", http.StatusUnauthorized)
 			return
 		}
-		http.Redirect(w, r, "http://13.61.16.38/model", http.StatusSeeOther)
+
+		// Redirect to the model page upon successful login
+		http.Redirect(w, r, "/model/", http.StatusSeeOther)
 		return
 	}
 
-	renderTemplate(w, "templates/login.html", nil)
+	renderTemplate(w, "login.html", nil)
 }
 
 func model(w http.ResponseWriter, r *http.Request) {
+	// Add your model-related logic here
 	w.Write([]byte("Welcome to the model page!"))
 }
