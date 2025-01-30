@@ -2,32 +2,32 @@
 body {
     font-family: 'Roboto', sans-serif;
     background-image: url('/static/7042424.jpg'); /* Path to your background image */
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
+    background-size: cover; /* Ensures the image covers the entire background */
+    background-position: center center; /* Centers the background image */
+    background-attachment: fixed; /* Makes sure the background doesn't scroll with the page */
+    color: #333;
     margin: 0;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    color: #fff;
 }
 
 /* Signup Container */
 .signup-container {
-    background-color: rgba(0, 0, 0, 0.7); /* Dark semi-transparent background for contrast */
+    background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white background for better readability */
     padding: 30px;
     border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
     text-align: center;
-    max-width: 400px;
     width: 100%;
+    max-width: 400px;
     box-sizing: border-box;
 }
 
 /* Headings */
 .signup-container h2 {
-    font-size: 28px;
+    font-size: 24px;
     margin-bottom: 10px;
     color: #4CAF50;
 }
@@ -38,7 +38,6 @@ body {
     text-align: left;
     margin: 10px 0 5px;
     font-weight: bold;
-    color: #fff;
 }
 
 /* Input Fields */
@@ -46,25 +45,26 @@ body {
 .signup-container input[type="email"],
 .signup-container input[type="password"] {
     width: 100%;
-    padding: 12px;
+    padding: 12px 15px;
     margin: 5px 0 15px;
     border: 1px solid #ccc;
     border-radius: 8px;
-    font-size: 14px;
     box-sizing: border-box;
+    font-size: 14px;
+    background-color: #f9f9f9; /* Light background for better contrast */
 }
 
 /* Button */
 .signup-container button {
     width: 100%;
-    padding: 12px 15px;
+    padding: 12px 20px;
     font-size: 16px;
     background-color: #4CAF50;
     color: white;
     border: none;
     border-radius: 8px;
     cursor: pointer;
-    transition: 0.3s ease;
+    transition: background-color 0.3s ease;
 }
 
 .signup-container button:hover {
@@ -75,12 +75,12 @@ body {
 .login-link {
     margin-top: 15px;
     font-size: 14px;
-    color: #fff;
 }
 
 .login-link a {
     color: #4CAF50;
     text-decoration: none;
+    font-weight: bold;
 }
 
 .login-link a:hover {
