@@ -1,10 +1,9 @@
 /* General Styles */
 body {
-    font-family: 'Roboto', sans-serif;
-    background-image: url('/static/7042424.jpg'); /* Path to your background image */
-    background-size: cover; /* Ensures the image covers the entire background */
-    background-position: center center; /* Centers the background image */
-    background-attachment: fixed; /* Makes sure the background doesn't scroll with the page */
+    background-image: url('/static/7042424.jpg');
+    background-size: cover;
+    background-position: center center;
+    background-attachment: fixed;
     color: #333;
     margin: 0;
     display: flex;
@@ -13,9 +12,10 @@ body {
     height: 100vh;
 }
 
+
 /* Signup Container */
 .signup-container {
-    background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white background for better readability */
+    background-color: rgba(255, 255, 255, 0.9); 
     padding: 30px;
     border-radius: 10px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
