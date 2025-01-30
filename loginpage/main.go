@@ -113,7 +113,7 @@ func SignupPage(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	renderTemplate(w, "templates/signup.html", nil)
+	renderTemplate(w, "loginpage/templates/signup.html", nil)
 }
 
 func LoginPage(w http.ResponseWriter, r *http.Request) {
@@ -145,7 +145,7 @@ func LoginPage(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	renderTemplate(w, "templates/login.html", nil)
+	renderTemplate(w, "loginpage/templates/login.html", nil)
 }
 
 func model(w http.ResponseWriter, r *http.Request) {
