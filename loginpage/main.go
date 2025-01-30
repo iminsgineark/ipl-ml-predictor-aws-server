@@ -47,7 +47,7 @@ func main() {
 }
 
 func renderTemplate(w http.ResponseWriter, templateFile string, data interface{}) {
-	tmpl, err := template.ParseFiles(templateFile)
+	tmpl, err := template.ParseFiles("/app/templates/" + templateFile) // Corrected path
 	if err != nil {
 		handleErrorResponse(w, "Error rendering template: "+err.Error(), http.StatusInternalServerError)
 		return
@@ -113,7 +113,7 @@ func SignupPage(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	renderTemplate(w, "loginpage/templates/signup.html", nil)
+	renderTemplate(w, "signup.html", nil)
 }
 
 func LoginPage(w http.ResponseWriter, r *http.Request) {
@@ -145,7 +145,7 @@ func LoginPage(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	renderTemplate(w, "loginpage/templates/login.html", nil)
+	renderTemplate(w, "login.html", nil)
 }
 
 func model(w http.ResponseWriter, r *http.Request) {
