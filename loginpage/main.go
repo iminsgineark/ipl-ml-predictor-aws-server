@@ -38,9 +38,9 @@ func main() {
 	fmt.Println("Connected to MongoDB!")
 
 	// Serve static files
-	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
+	fs := http.FileServer(http.Dir("/app/static"))
+	http.Handle("/static/", http.StripPrefix("/static/", fs))
 
-	// Define routes
 	http.HandleFunc("/", LoginPage)
 	http.HandleFunc("/login", LoginPage)
 	http.HandleFunc("/signup", SignupPage)
@@ -51,7 +51,8 @@ func main() {
 }
 
 func renderTemplate(w http.ResponseWriter, templateFile string, data interface{}) {
-	tmpl, err := template.ParseFiles("templates/" + templateFile)
+	log.Printf("Rendering template: %s", templateFile)
+	tmpl, err := template.ParseFiles("/app/templates/" + templateFile)
 	if err != nil {
 		handleErrorResponse(w, "Error rendering template: "+err.Error(), http.StatusInternalServerError)
 		return
