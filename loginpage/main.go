@@ -37,8 +37,7 @@ func main() {
 	userColl = client.Database("authDB").Collection("users")
 	fmt.Println("Connected to MongoDB!")
 
-	// Serve static files
-	fs := http.FileServer(http.Dir("/app/static"))
+	fs := http.FileServer(http.Dir("/app/loginpage/static"))
 	http.Handle("/static/", http.StripPrefix("/static/", fs))
 
 	http.HandleFunc("/", LoginPage)
