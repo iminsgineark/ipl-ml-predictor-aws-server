@@ -39,6 +39,7 @@ services:
     volumes:
       - ./loginpage/static:/app/static  
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/cert:/etc/nginx/cert
     depends_on:
       - go_app
       - streamlit
