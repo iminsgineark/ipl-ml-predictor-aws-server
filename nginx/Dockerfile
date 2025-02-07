@@ -6,6 +6,8 @@ COPY nginx.conf /usr/local/openresty/nginx/conf/nginx.conf
 
 COPY mime.types /etc/nginx/mime.types
 
-EXPOSE 80
+COPY cert /etc/nginx/cert
+
+EXPOSE 80 443
 
 CMD ["openresty", "-g", "daemon off;"]
