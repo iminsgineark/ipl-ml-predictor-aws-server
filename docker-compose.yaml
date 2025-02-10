@@ -36,10 +36,12 @@ services:
     image: ipl-match-predictor-nginx
     ports:
       - "80:80"
+      - "443:443"
     volumes:
       - ./loginpage/static:/app/static  
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
-      - ./nginx/cert:/etc/nginx/cert
+      - ./nginx/cert/ipl-model.crt:/etc/nginx/ssl/ipl-model.crt
+      - ./nginx/cert/ipl-model.key:/etc/nginx/ssl/ipl-model.key
     depends_on:
       - go_app
       - streamlit
